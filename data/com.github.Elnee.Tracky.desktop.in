@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=tracky
+Exec=tracky
+Terminal=false
+Type=Application
+Categories=GTK;
+StartupNotify=true

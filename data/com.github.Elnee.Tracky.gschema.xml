@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="tracky">
+	<schema id="com.github.Elnee.Tracky" path="/com/github/Elnee/Tracky/">
+	</schema>
+</schemalist>

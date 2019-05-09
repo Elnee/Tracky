@@ -1,0 +1,7 @@
+data/com.github.Elnee.Tracky.desktop.in
+data/com.github.Elnee.Tracky.appdata.xml.in
+data/com.github.Elnee.Tracky.gschema.xml
+src/window.ui
+src/main.vala
+src/window.vala
+
