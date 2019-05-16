@@ -1,7 +1,8 @@
 tracky_sources = [
   'app.vala',
   'config.vala',
-  'window.vala',
+  'database.vala',
+  'views/window.vala'
 ]
 
 tracky_deps = [
