@@ -1,5 +1,6 @@
 tracky_sources = [
-  'main.vala',
+  'app.vala',
+  'config.vala',
   'window.vala',
 ]
 
