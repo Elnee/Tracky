@@ -13,23 +13,26 @@ namespace Tracky {
 		public string title { get; protected set;}
 		public int current { get; protected set; }
 
-		protected GLib.Timer timer;
+		protected bool counting;
 
 		public Task(int id, string title, int current) {
 			this.id = id;
 			this.title = title;
 			this.current = current;
-
-			this.timer = new Timer();
+			this.counting = false;
 		}
 
 		public void start() {
-			timer.start();
+			counting = true;
+			GLib.Timeout.add_seconds(1, () => {
+				if (!counting) return false;
+				current += 1;
+				return true;
+			});
 		}
 
 		public void stop() {
-			timer.stop();
-			current += (int) timer.elapsed();
+			counting = false;
 		}
 	}
 }

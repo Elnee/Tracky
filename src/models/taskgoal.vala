@@ -16,20 +16,18 @@ namespace Tracky {
 			this.finished = (current >= goal) ? true : false;
 		}
 
-		public new async void start() {
-			if (current < goal) {
-				timer.start();
-				while (!finished) {
-					int elapsed = (int) timer.elapsed();
-					if (elapsed >= goal - current) {
-						timer.stop();
-						current = goal;
-						finished = true;
+		public new void start() {
+			counting = true;
+			if (!finished) {
+				GLib.Timeout.add_seconds(1, () => {
+					if (!counting) return false;
+					current += 1;
+					if (current == goal) {
 						finish();
+						return false;
 					}
-					GLib.Idle.add(this.start.callback);
-					yield;
-				}
+					return true;
+				});
 			}
 		}
 
