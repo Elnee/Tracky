@@ -19,6 +19,15 @@ namespace Tracky {
 			return app.run();*/
 
 			// Testing
+			var taskgoal = new TaskGoal(1, "Fffff", 0, 2);
+			taskgoal.finish.connect(() => {
+				stdout.printf("COMPLETE!\n");
+			});
+			taskgoal.start();
+
+			while (!taskgoal.finished) {
+				stdout.printf("%d", taskgoal.current);
+			}
 
 			return 0;
 		}

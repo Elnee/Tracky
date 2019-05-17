@@ -13,7 +13,7 @@ namespace Tracky {
 		public string title { get; protected set;}
 		public int current { get; protected set; }
 
-		private GLib.Timer timer;
+		protected GLib.Timer timer;
 
 		public Task(int id, string title, int current) {
 			this.id = id;
