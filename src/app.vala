@@ -19,15 +19,22 @@ namespace Tracky {
 			return app.run();*/
 
 			// Testing
-			var taskgoal = new TaskGoal(1, "Fffff", 0, 2);
+			GLib.MainLoop mainloop = new GLib.MainLoop();
+			var taskgoal = new TaskGoal(1, "Fffff", 5, 10);
 			taskgoal.finish.connect(() => {
-				stdout.printf("COMPLETE!\n");
+				stdout.printf("COMPLETE 1!\n");
+				mainloop.quit();
 			});
 			taskgoal.start();
 
-			while (!taskgoal.finished) {
-				stdout.printf("%d", taskgoal.current);
-			}
+			//var taskgoal2 = new TaskGoal(1, "Fffff", 0, 2);
+			//taskgoal2.finish.connect(() => {
+				//stdout.printf("COMPLETE 2!\n");
+			//});
+			//taskgoal2.start();
+			//
+
+			mainloop.run();
 
 			return 0;
 		}
