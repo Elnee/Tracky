@@ -19,7 +19,6 @@ namespace Tracky {
 			return app.run();*/
 
 			// Testing
-			var db = new Database();
 
 			return 0;
 		}
