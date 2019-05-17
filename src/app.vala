@@ -6,7 +6,7 @@ namespace Tracky {
 		}
 
 		public static int main() {
-			var app = new App();
+			/*var app = new App();
 
 			app.activate.connect (() => {
 				var win = app.active_window;
@@ -16,7 +16,12 @@ namespace Tracky {
 				win.present ();
 			});
 
-			return app.run();
+			return app.run();*/
+
+			// Testing
+			var db = new Database();
+
+			return 0;
 		}
 	}
 }

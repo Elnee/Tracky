@@ -1,14 +1,14 @@
 namespace Tracky {
-	public class Config {
-		private string _database_location;
+	public class Config : Object {
+		private string _home_config;
 
 		public const string APPLICATION_ID = "com.github.Elnee.Tracky";
-		public string DATABASE_LOCATION {
-			get { return _database_location; }
+		public string HOME_CONFIG {
+			get { return _home_config; }
 		}
 
 		public Config() {
-			_database_location = GLib.Environment.get_home_dir() + "/.config/Tracky/main.db";
+			_home_config = GLib.Environment.get_home_dir() + "/.config/Tracky/";
 		}
 	}
 }
