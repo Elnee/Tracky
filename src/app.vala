@@ -19,23 +19,9 @@ namespace Tracky {
 			return app.run();*/
 
 			// Testing
-			GLib.MainLoop mainloop = new GLib.MainLoop();
-			var taskgoal = new TaskGoal(1, "Fffff", 5, 7);
-			taskgoal.finish.connect(() => {
-				stdout.printf("COMPLETE 1!\n");
-				stdout.printf(@"CURRENT: $(taskgoal.current)\n");
-				mainloop.quit();
-			});
-			taskgoal.start();
-
-			var taskgoal2 = new TaskGoal(1, "Fffff", 0, 2);
-			taskgoal2.finish.connect(() => {
-				stdout.printf("COMPLETE 2!\n");
-				stdout.printf(@"CURRENT: $(taskgoal2.current)\n");
-			});
-			taskgoal2.start();
-
-			mainloop.run();
+			var db = new Database();
+			var tasks = db.retrieveTasks();
+			stdout.printf(@"$(tasks[3].current)");
 
 			return 0;
 		}

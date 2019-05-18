@@ -1,9 +1,14 @@
+using Gee;
+
 namespace Tracky {
 	public class Database : Object {
 		private Sqlite.Database db;
 		private const string DB_NAME = "main.db";
 		private Tracky.Config conf = new Config();
 		private string errmsg;
+
+		// Queries
+		private const string RETRIEVE_QUERY = "SELECT * FROM Cards;";
 
 		//TODO: Handle errors
 		public Database() {
@@ -28,7 +33,7 @@ namespace Tracky {
 				// Create new table
 				string query = """
 					CREATE TABLE Cards (
-						id      INT  PRIMARY KEY         ,
+						id      INTEGER  PRIMARY KEY     ,
 						title   TEXT             NOT NULL,
 						current INT              NOT NULL,
 						goal    INT
@@ -41,5 +46,28 @@ namespace Tracky {
 				}
 			}
 		}
+
+		public ArrayList<Task> retrieveTasks() {
+			Sqlite.Statement stmt;
+			var tasks = new ArrayList<Task>();
+
+			int ec = db.prepare_v2(RETRIEVE_QUERY, RETRIEVE_QUERY.length, out stmt);
+			if (ec != Sqlite.OK)
+				stderr.printf("Error %d: %s\n", db.errcode(), db.errmsg());
+
+			int cols = stmt.column_count();
+			while (stmt.step() == Sqlite.ROW) {
+				int task_id = stmt.column_value(0).to_int();
+				string task_title = stmt.column_value(1).to_text();
+				int task_current = stmt.column_value(2).to_int();
+				int task_goal = stmt.column_value(3).to_int();
+
+				if (task_goal == 0) tasks.add(new Task(task_id, task_title, task_current));
+				else tasks.add(new TaskGoal(task_id, task_title, task_current, task_goal));
+			}
+
+			return tasks;
+		}
+
 	}
 }

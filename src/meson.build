@@ -12,6 +12,7 @@ tracky_deps = [
   dependency('gio-2.0', version: '>= 2.50'),
   dependency('gtk+-3.0', version: '>= 3.22'),
   dependency('sqlite3', version: '>= 3.28'),
+  dependency('gee-0.8', version: '>= 0.20'),
 ]
 
 gnome = import('gnome')
