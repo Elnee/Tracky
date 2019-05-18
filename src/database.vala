@@ -7,9 +7,6 @@ namespace Tracky {
 		private Tracky.Config conf = new Config();
 		private string errmsg;
 
-		// Queries
-		private const string RETRIEVE_QUERY = "SELECT * FROM Cards;";
-
 		//TODO: Handle errors
 		public Database() {
 			// Checking if database exists and open if exists
@@ -50,12 +47,12 @@ namespace Tracky {
 		public ArrayList<Task> retrieveTasks() {
 			Sqlite.Statement stmt;
 			var tasks = new ArrayList<Task>();
+			const string RETRIEVE_TASKS = "SELECT * FROM Cards;";
 
-			int ec = db.prepare_v2(RETRIEVE_QUERY, RETRIEVE_QUERY.length, out stmt);
+			int ec = db.prepare_v2(RETRIEVE_TASKS, RETRIEVE_TASKS.length, out stmt);
 			if (ec != Sqlite.OK)
 				stderr.printf("Error %d: %s\n", db.errcode(), db.errmsg());
 
-			int cols = stmt.column_count();
 			while (stmt.step() == Sqlite.ROW) {
 				int task_id = stmt.column_value(0).to_int();
 				string task_title = stmt.column_value(1).to_text();
@@ -67,6 +64,18 @@ namespace Tracky {
 			}
 
 			return tasks;
+		}
+
+		public void updateTask (Task task) {
+			string task_goal = (task is TaskGoal) ? (task as TaskGoal).goal.to_string() : "NULL";
+
+			string query = @"UPDATE Cards SET title='$(task.title)', " +
+			               @"current=$(task.current), " +
+			               @"goal=$(task_goal) WHERE id=$(task.id)";
+
+			int ec = db.exec(query, null, out errmsg);
+			if (ec != Sqlite.OK)
+				stderr.printf ("Error: %s\n", errmsg);
 		}
 
 	}

@@ -19,9 +19,18 @@ namespace Tracky {
 			return app.run();*/
 
 			// Testing
+			var loop = new GLib.MainLoop ();
 			var db = new Database();
 			var tasks = db.retrieveTasks();
-			stdout.printf(@"$(tasks[3].current)");
+
+			(tasks[4] as TaskGoal).finish.connect(() => {
+				db.updateTask(tasks[4]);
+				loop.quit();
+			});
+
+			(tasks[4] as TaskGoal).start();
+
+			loop.run();
 
 			return 0;
 		}

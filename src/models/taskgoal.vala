@@ -1,5 +1,5 @@
 namespace Tracky {
-	public interface iTaskGoal : Object {
+	public interface iTaskGoal : Object, iTask {
 		public abstract int goal { get; protected set; }
 		public abstract bool finished { get; protected set; }
 
