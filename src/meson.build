@@ -2,9 +2,9 @@ tracky_sources = [
   'app.vala',
   'config.vala',
   'database.vala',
-  'mainmodel.vala',
   'models/task.vala',
   'models/taskgoal.vala',
+  'models/mainmodel.vala',
   'views/window.vala'
 ]
 
