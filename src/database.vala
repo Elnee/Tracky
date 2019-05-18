@@ -7,22 +7,26 @@ namespace Tracky {
 		private Tracky.Config conf = new Config();
 		private string errmsg;
 
-		//TODO: Handle errors
 		public Database() {
 			// Checking if database exists and open if exists
 			File db_file = File.new_for_path(conf.HOME_CONFIG + DB_NAME);
 			if (db_file.query_exists()) {
 				int ec = Sqlite.Database.open (conf.HOME_CONFIG + DB_NAME, out db);
 				if (ec != Sqlite.OK)
-					stderr.printf("Can't open database: %d: %s\n", db.errcode(), db.errmsg());
+					stderr.printf("Can't open database %d: %s\n", db.errcode(), db.errmsg());
 			} else {
 				// Create new DB file if doesn't exist one
 				stdout.printf("Will create a new database\n");
 
 				// Ensure that home config directories exist
 				File conf_path = File.new_for_path(conf.HOME_CONFIG);
-				if (!conf_path.query_exists())
-					conf_path.make_directory_with_parents();
+				if (!conf_path.query_exists()) {
+					try {
+						conf_path.make_directory_with_parents();
+					} catch (Error e) {
+						stdout.printf("GIO Error %d: %s\n", e.code, e.message);
+					}
+				}
 
 				Sqlite.Database.open_v2 (conf.HOME_CONFIG + DB_NAME, out db,
 					Sqlite.OPEN_READWRITE | Sqlite.OPEN_CREATE);
