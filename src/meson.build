@@ -5,7 +5,8 @@ tracky_sources = [
   'models/task.vala',
   'models/taskgoal.vala',
   'models/mainmodel.vala',
-  'views/window.vala'
+  'views/widgets/taskwidget.vala',
+  'views/window.vala',
 ]
 
 tracky_deps = [

@@ -17,13 +17,26 @@
  */
 
 namespace Tracky {
-	[GtkTemplate (ui = "/com/github/Elnee/Tracky/window.ui")]
+	[GtkTemplate (ui = "/com/github/Elnee/Tracky/views/ui/window.ui")]
 	public class Window : Gtk.ApplicationWindow {
 		[GtkChild]
-		Gtk.Label label;
+		private Gtk.ListBox tasks_listbox;
 
-		public Window (Gtk.Application app) {
-			Object (application: app);
+		private MainModel model;
+
+		public Window (Gtk.Application app, MainModel model) {
+			this.application = app;
+			this.model = model;
+
+			drawTasks();
+		}
+
+		private void drawTasks() {
+			for (int i = 0; i < model.nTasks; ++i) {
+				var task = model.getTask(i);
+				var task_widget = new TaskWidget(task.title);
+				tasks_listbox.add(task_widget);
+			}
 		}
 	}
 }

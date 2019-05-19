@@ -11,7 +11,8 @@ namespace Tracky {
 			app.activate.connect (() => {
 				var win = app.active_window;
 				if (win == null) {
-					win = new Tracky.Window (app);
+					var model = new MainModel();
+					win = new Tracky.Window (app, model);
 				}
 				win.present ();
 			});

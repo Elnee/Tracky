@@ -2,7 +2,7 @@ using Gee;
 
 namespace Tracky {
 	public interface iMainModel : Object {
-		public abstract Task getTask(int id);
+		public abstract Tracky.Task getTask(int id);
 		public abstract int nTasks { get; }
 	}
 
@@ -16,7 +16,7 @@ namespace Tracky {
 			tasks = db.retrieveTasks();
 		}
 
-		public Task getTask(int id) {
+		public Tracky.Task getTask(int id) {
 			return tasks[id];
 		}
 
