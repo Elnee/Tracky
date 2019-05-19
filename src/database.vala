@@ -48,9 +48,9 @@ namespace Tracky {
 			}
 		}
 
-		public ArrayList<Task> retrieveTasks() {
+		public ArrayList<Tracky.Task> retrieveTasks() {
 			Sqlite.Statement stmt;
-			var tasks = new ArrayList<Task>();
+			var tasks = new ArrayList<Tracky.Task>();
 			const string RETRIEVE_TASKS = "SELECT * FROM Cards;";
 
 			int ec = db.prepare_v2(RETRIEVE_TASKS, RETRIEVE_TASKS.length, out stmt);
@@ -63,15 +63,16 @@ namespace Tracky {
 				int task_current = stmt.column_value(2).to_int();
 				int task_goal = stmt.column_value(3).to_int();
 
-				if (task_goal == 0) tasks.add(new Task(task_id, task_title, task_current));
-				else tasks.add(new TaskGoal(task_id, task_title, task_current, task_goal));
+				if (task_goal == 0) tasks.add(new Tracky.Task(task_id, task_title, task_current));
+				else tasks.add(new Tracky.TaskGoal(task_id, task_title, task_current, task_goal));
 			}
 
 			return tasks;
 		}
 
-		public void updateTask (Task task) {
-			string task_goal = (task is TaskGoal) ? (task as TaskGoal).goal.to_string() : "NULL";
+		public void updateTask (Tracky.Task task) {
+			string task_goal = (task is Tracky.TaskGoal)
+				? (task as Tracky.TaskGoal).goal.to_string() : "NULL";
 
 			string query = @"UPDATE Cards SET title='$(task.title)', " +
 			               @"current=$(task.current), " +

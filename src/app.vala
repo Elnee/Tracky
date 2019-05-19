@@ -6,7 +6,7 @@ namespace Tracky {
 		}
 
 		public static int main() {
-			/*var app = new App();
+			var app = new App();
 
 			app.activate.connect (() => {
 				var win = app.active_window;
@@ -16,23 +16,23 @@ namespace Tracky {
 				win.present ();
 			});
 
-			return app.run();*/
+			return app.run();
 
 			// Testing
-			var loop = new GLib.MainLoop ();
-			var db = new Database();
-			var tasks = db.retrieveTasks();
+			//var loop = new GLib.MainLoop ();
+			//var db = new Database();
+			//var tasks = db.retrieveTasks();
 
-			(tasks[4] as TaskGoal).finish.connect(() => {
-				db.updateTask(tasks[4]);
-				loop.quit();
-			});
+			//(tasks[4] as TaskGoal).finish.connect(() => {
+				//db.updateTask(tasks[4]);
+				//loop.quit();
+			//});
 
-			(tasks[4] as TaskGoal).start();
+			//(tasks[4] as TaskGoal).start();
 
-			loop.run();
+			//loop.run();
 
-			return 0;
+			//return 0;
 		}
 	}
 }
