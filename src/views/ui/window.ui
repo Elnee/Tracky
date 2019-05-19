@@ -10,7 +10,7 @@
       <object class="GtkHeaderBar" id="header_bar">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="title">Hello, World!</property>
+        <property name="title">Tracky</property>
         <property name="show_close_button">True</property>
       </object>
     </child>
@@ -23,26 +23,39 @@
         <property name="margin_top">10</property>
         <property name="margin_bottom">10</property>
         <child>
-          <object class="GtkBox">
+          <object class="GtkScrolledWindow">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="orientation">vertical</property>
+            <property name="can_focus">True</property>
+            <property name="shadow_type">in</property>
             <child>
-              <placeholder/>
-            </child>
-            <child>
-              <object class="GtkListBox" id="tasks_listbox">
+              <object class="GtkViewport">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkBox">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <object class="GtkListBox" id="tasks_listbox">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                  </object>
+                </child>
               </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <placeholder/>
             </child>
           </object>
           <packing>
