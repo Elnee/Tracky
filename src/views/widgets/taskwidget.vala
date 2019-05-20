@@ -2,16 +2,21 @@ namespace Tracky {
 	[GtkTemplate (ui = "/com/github/Elnee/Tracky/views/ui/taskwidget.ui")]
 	public class TaskWidget : Gtk.ListBoxRow {
 		[GtkChild]
-		private Gtk.Label title_label;
+		protected Gtk.Label title_label;
 		[GtkChild]
-		private Gtk.Button start_btn;
+		protected Gtk.Button start_btn;
 		[GtkChild]
-		public Gtk.Label current_label;
+		protected Gtk.Label current_label;
+		[GtkChild]
+		protected Gtk.Box body_box;
 
-		private Gtk.Image start_icon;
-		private Gtk.Image pause_icon;
-		private bool counting = false;
-		private int seconds;
+		protected Gtk.Image start_icon;
+		protected Gtk.Image pause_icon;
+		protected bool counting = false;
+		protected int seconds;
+
+		protected MainModel model;
+		protected int task_index;
 
 		public TaskWidget(int task_index, MainModel model) {
 			this.selectable = false;
@@ -21,21 +26,32 @@ namespace Tracky {
 			pause_icon = new Gtk.Image.from_icon_name
 			  ("media-playback-pause", Gtk.IconSize.BUTTON);
 
+			this.model = model;
+			this.task_index = task_index;
+
 			this.title_label.label = model.getTaskTitle(task_index);
 			this.start_btn.image = start_icon;
 			this.seconds = model.getTaskCurrent(task_index);
 			this.current_label.label = Helper.secondsToText(seconds);
+
+			model.getTask(task_index).notify["current"].connect(() => {
+				this.current_label.label =
+					Helper.secondsToText(model.getTaskCurrent(task_index));
+			});
 		}
 
 		[GtkCallback]
-		private void on_start_btn_clicked() {
+		protected void on_start_btn_clicked() {
 			if (!counting) {
-				this.start_btn.image = pause_icon;
 				counting = true;
+				this.start_btn.image = pause_icon;
+				model.startTask(task_index);
 			} else {
-				this.start_btn.image = start_icon;
 				counting = false;
+				this.start_btn.image = start_icon;
+				model.stopTask(task_index);
 			}
 		}
+
 	}
 }

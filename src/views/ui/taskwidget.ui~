@@ -9,7 +9,7 @@
     <property name="can_focus">True</property>
     <property name="hexpand">True</property>
     <child>
-      <object class="GtkBox">
+      <object class="GtkBox" id="main_box">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
@@ -44,6 +44,7 @@
                 <property name="receives_default">True</property>
                 <property name="margin_left">5</property>
                 <property name="margin_bottom">5</property>
+                <signal name="clicked" handler="on_start_btn_clicked" swapped="no"/>
                 <child>
                   <placeholder/>
                 </child>

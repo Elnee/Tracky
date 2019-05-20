@@ -12,12 +12,16 @@ namespace Tracky {
 
 		public abstract void startTask(int index);
 		public abstract void stopTask(int index);
+
+		public abstract Tracky.Task getTask(int index);
 	}
 
 	public class MainModel : Object, iMainModel {
 		private Database db;
 		private ArrayList<Tracky.Task> tasks;
 		public int nTasks { get {return tasks.size;} }
+
+		public delegate void onCurrentUpdate();
 
 		public MainModel() {
 			db = Database.getDatabase();
@@ -66,5 +70,10 @@ namespace Tracky {
 			//TODO: Database update task (needs empty for testing)
 		}
 
+		public Tracky.Task getTask(int index)
+			requires (index >= 0 && index < nTasks)
+		{
+			return tasks[index];
+		}
 	}
 }
