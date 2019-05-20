@@ -42,7 +42,7 @@ namespace Tracky {
 
 				// Create new table
 				string query = """
-					CREATE TABLE Cards (
+					CREATE TABLE Tasks (
 						id      INTEGER  PRIMARY KEY     ,
 						title   TEXT             NOT NULL,
 						current INT              NOT NULL,
@@ -60,7 +60,7 @@ namespace Tracky {
 		public ArrayList<Tracky.Task> retrieveTasks() {
 			Sqlite.Statement stmt;
 			var tasks = new ArrayList<Tracky.Task>();
-			const string RETRIEVE_TASKS = "SELECT * FROM Cards;";
+			const string RETRIEVE_TASKS = "SELECT * FROM Tasks;";
 
 			int ec = db.prepare_v2(RETRIEVE_TASKS, RETRIEVE_TASKS.length, out stmt);
 			if (ec != Sqlite.OK)
@@ -83,7 +83,7 @@ namespace Tracky {
 			string task_goal = (task is Tracky.TaskGoal)
 				? (task as Tracky.TaskGoal).goal.to_string() : "NULL";
 
-			string query = @"UPDATE Cards SET title='$(task.title)', " +
+			string query = @"UPDATE Tasks SET title='$(task.title)', " +
 			               @"current=$(task.current), " +
 			               @"goal=$(task_goal) WHERE id=$(task.id)";
 
