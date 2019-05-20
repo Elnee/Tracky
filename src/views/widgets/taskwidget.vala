@@ -15,7 +15,7 @@ namespace Tracky {
 		protected Gtk.Image start_icon;
 		protected Gtk.Image pause_icon;
 		protected bool counting = false;
-		protected int seconds;
+		protected int current;
 
 		protected MainModel model;
 		protected int task_index;
@@ -33,12 +33,13 @@ namespace Tracky {
 
 			this.title_label.label = model.getTaskTitle(task_index);
 			this.start_btn.image = start_icon;
-			this.seconds = model.getTaskCurrent(task_index);
-			this.current_label.label = Helper.secondsToText(seconds);
+			this.current = model.getTaskCurrent(task_index);
+			this.current_label.label = Helper.secondsToText(current);
 
 			model.getTask(task_index).notify["current"].connect(() => {
+				this.current = model.getTaskCurrent(task_index);
 				this.current_label.label =
-					Helper.secondsToText(model.getTaskCurrent(task_index));
+					Helper.secondsToText(this.current);
 			});
 		}
 
