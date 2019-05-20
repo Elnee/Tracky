@@ -12,9 +12,14 @@ namespace Tracky {
 			buildProgressBar();
 			buildGoalLabel();
 
-			var task = model.getTask(task_index);
-			(task as Tracky.TaskGoal).notify["current"].connect(() => {
+			var task = model.getTask(task_index) as Tracky.TaskGoal;
+			task.notify["current"].connect(() => {
 				this.progress_bar.fraction = (double) current / goal;
+			});
+
+			task.finish.connect(() => {
+				this.start_btn.image = start_icon;
+				this.start_btn.sensitive = false;
 			});
 		}
 
