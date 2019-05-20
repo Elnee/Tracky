@@ -7,8 +7,9 @@ namespace Tracky {
 			this.progress_bar = new Gtk.ProgressBar();
 			this.progress_bar.fraction = 0.5;
 			this.progress_bar.visible = true;
+			this.progress_bar.margin_left = 5;
 
-			body_box.add(progress_bar);
+			main_box.add(progress_bar);
 		}
 	}
 }

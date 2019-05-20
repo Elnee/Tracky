@@ -9,6 +9,8 @@ namespace Tracky {
 		protected Gtk.Label current_label;
 		[GtkChild]
 		protected Gtk.Box body_box;
+		[GtkChild]
+		protected Gtk.Box main_box;
 
 		protected Gtk.Image start_icon;
 		protected Gtk.Image pause_icon;
