@@ -11,8 +11,9 @@ namespace Tracky {
 		private Gtk.Image start_icon;
 		private Gtk.Image pause_icon;
 		private bool counting = false;
+		private int seconds;
 
-		public TaskWidget(string title, string current) {
+		public TaskWidget(int task_index, MainModel model) {
 			this.selectable = false;
 
 			start_icon = new Gtk.Image.from_icon_name
@@ -20,9 +21,10 @@ namespace Tracky {
 			pause_icon = new Gtk.Image.from_icon_name
 			  ("media-playback-pause", Gtk.IconSize.BUTTON);
 
-			this.title_label.label = title;
+			this.title_label.label = model.getTaskTitle(task_index);
 			this.start_btn.image = start_icon;
-			this.current_label.label = current;
+			this.seconds = model.getTaskCurrent(task_index);
+			this.current_label.label = Helper.secondsToText(seconds);
 		}
 
 		[GtkCallback]
