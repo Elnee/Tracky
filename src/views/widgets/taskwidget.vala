@@ -10,6 +10,7 @@ namespace Tracky {
 
 		private Gtk.Image start_icon;
 		private Gtk.Image pause_icon;
+		private bool counting = false;
 
 		public TaskWidget(string title, string current) {
 			this.selectable = false;
@@ -22,6 +23,17 @@ namespace Tracky {
 			this.title_label.label = title;
 			this.start_btn.image = start_icon;
 			this.current_label.label = current;
+		}
+
+		[GtkCallback]
+		private void on_start_btn_clicked() {
+			if (!counting) {
+				this.start_btn.image = pause_icon;
+				counting = true;
+			} else {
+				this.start_btn.image = start_icon;
+				counting = false;
+			}
 		}
 	}
 }
