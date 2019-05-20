@@ -4,10 +4,19 @@ namespace Tracky {
 	public class Database : Object {
 		private Sqlite.Database db;
 		private const string DB_NAME = "main.db";
-		private Tracky.Config conf = new Config();
+		private Tracky.Config conf = Config.getConfig();
 		private string errmsg;
 
-		public Database() {
+		private static Database? instance;
+
+		public static Database getDatabase() {
+			if (instance == null) {
+				instance = new Database();
+			}
+			return instance;
+		}
+
+		private Database() {
 			// Checking if database exists and open if exists
 			File db_file = File.new_for_path(conf.HOME_CONFIG + DB_NAME);
 			if (db_file.query_exists()) {

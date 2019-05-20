@@ -12,7 +12,7 @@ namespace Tracky {
 		public int nTasks { get {return tasks.size;} }
 
 		public MainModel() {
-			db = new Database();
+			db = Database.getDatabase();
 			tasks = db.retrieveTasks();
 		}
 
