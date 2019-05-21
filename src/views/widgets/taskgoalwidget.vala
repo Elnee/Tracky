@@ -20,6 +20,14 @@ namespace Tracky {
 			task.finish.connect(() => {
 				this.start_btn.image = start_icon;
 				this.start_btn.sensitive = false;
+
+				try {
+					var notification = new Notify.Notification(title_label.label,
+						"The task has been finished", "dialog-information");
+					notification.show();
+				} catch (Error e) {
+					stdout.printf("Libnotify error %d: %s", e.code, e.message);
+				}
 			});
 		}
 

@@ -3,6 +3,8 @@ namespace Tracky {
 		public App() {
 			application_id = Config.APPLICATION_ID;
 			flags |= ApplicationFlags.FLAGS_NONE;
+
+			Notify.init("Tracky");
 		}
 
 		public static int main() {
