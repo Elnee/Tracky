@@ -21,6 +21,12 @@ namespace Tracky {
 	public class Window : Gtk.ApplicationWindow {
 		[GtkChild]
 		private Gtk.ListBox tasks_listbox;
+		[GtkChild]
+		private Gtk.Stack main_stack;
+		[GtkChild]
+		private Gtk.CheckButton withgoal_checkbtn;
+		[GtkChild]
+		private Gtk.Revealer goal_revealer;
 
 		private MainModel model;
 
@@ -39,6 +45,20 @@ namespace Tracky {
 				else
 					task_widget = new TaskGoalWidget(i, model);
 				tasks_listbox.add(task_widget);
+			}
+		}
+
+		[GtkCallback]
+		void on_newtask_btn_clicked() {
+			main_stack.visible_child_name = "newtask_page";
+		}
+
+		[GtkCallback]
+		void on_withgoal_checkbtn_toggled() {
+			if (withgoal_checkbtn.active) {
+				goal_revealer.set_reveal_child(true);
+			} else {
+				goal_revealer.set_reveal_child(false);
 			}
 		}
 
