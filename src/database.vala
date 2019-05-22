@@ -103,5 +103,13 @@ namespace Tracky {
 				stderr.printf ("Error: %s\n", errmsg);
 		}
 
+		public void deleteTask(int id) {
+			string query = @"DELETE FROM Tasks WHERE id = $id";
+
+			int ec = db.exec(query, null, out errmsg);
+			if (ec != Sqlite.OK)
+				stderr.printf ("Error: %s\n", errmsg);
+		}
+
 	}
 }

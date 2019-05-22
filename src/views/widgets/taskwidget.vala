@@ -66,6 +66,13 @@ namespace Tracky {
 			counting = false;
 			this.start_btn.image = start_icon;
 			model.resetTask(task_index);
+			toggleControls();
+		}
+
+		[GtkCallback]
+		protected void on_remove_btn_clicked() {
+			model.removeTask(task_index);
+			destroy();
 		}
 
 		public void toggleControls() {

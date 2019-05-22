@@ -105,6 +105,7 @@ namespace Tracky {
 			model.addNewTask(title_entry.text, goal);
 			addTaskToList(model.nTasks - 1);
 			clearNewtaskSection();
+			newtask_btn.sensitive = true;
 		}
 
 	}
