@@ -27,6 +27,12 @@ namespace Tracky {
 		private Gtk.CheckButton withgoal_checkbtn;
 		[GtkChild]
 		private Gtk.Revealer goal_revealer;
+		[GtkChild]
+		private Gtk.Entry title_entry;
+		[GtkChild]
+		private Gtk.SpinButton hours_spnbtn;
+		[GtkChild]
+		private Gtk.SpinButton minutes_spnbtn;
 
 		private MainModel model;
 
@@ -39,14 +45,29 @@ namespace Tracky {
 
 		private void drawTasks() {
 			for (int i = 0; i < model.nTasks; ++i) {
-				TaskWidget task_widget;
-				if (!model.taskHasGoal(i))
-					task_widget = new TaskWidget(i, model);
-				else
-					task_widget = new TaskGoalWidget(i, model);
-				tasks_listbox.add(task_widget);
+				addTaskToList(i);
 			}
 		}
+
+		private void addTaskToList(int index) {
+			TaskWidget task_widget;
+				if (!model.taskHasGoal(index))
+					task_widget = new TaskWidget(index, model);
+				else
+					task_widget = new TaskGoalWidget(index, model);
+				tasks_listbox.add(task_widget);
+		}
+
+		private void clearNewtaskSection() {
+			title_entry.text = "";
+			hours_spnbtn.value = 0;
+			minutes_spnbtn.value = 0;
+			withgoal_checkbtn.active = false;
+		}
+
+		//
+		//  New task section
+		//
 
 		[GtkCallback]
 		void on_newtask_btn_clicked() {
@@ -60,6 +81,22 @@ namespace Tracky {
 			} else {
 				goal_revealer.set_reveal_child(false);
 			}
+		}
+
+		[GtkCallback]
+		void on_cancelcreate_btn_clicked() {
+			main_stack.visible_child_name = "tasks_page";
+			clearNewtaskSection();
+		}
+
+		[GtkCallback]
+		void on_createtask_btn_clicked() {
+			main_stack.visible_child_name = "tasks_page";
+			var goal = Helper.hmToSeconds(hours_spnbtn.get_value_as_int(),
+			                           minutes_spnbtn.get_value_as_int());
+			model.addNewTask(title_entry.text, goal);
+			addTaskToList(model.nTasks - 1);
+			clearNewtaskSection();
 		}
 
 	}

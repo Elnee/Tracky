@@ -14,6 +14,9 @@ namespace Tracky {
 		public abstract void stopTask(int index);
 
 		public abstract Tracky.Task getTask(int index);
+
+		public abstract void addNewTask(string title, int goal);
+		public abstract void saveAllTasks();
 	}
 
 	public class MainModel : Object, iMainModel {
@@ -68,14 +71,24 @@ namespace Tracky {
 		{
 			var task = tasks[index];
 			task.stop();
-			//db.updateTask(task);
-			//TODO: Database update task (needs empty for testing)
+			db.updateTask(task);
 		}
 
 		public Tracky.Task getTask(int index)
 			requires (index >= 0 && index < nTasks)
 		{
 			return tasks[index];
+		}
+
+		public void addNewTask(string title, int goal) {
+			db.createTask(title, goal);
+			tasks.add(db.retrieveTasks()[nTasks]);
+		}
+
+		public void saveAllTasks() {
+			for (int i = 0; i < nTasks; ++i) {
+				db.updateTask(tasks[i]);
+			}
 		}
 	}
 }

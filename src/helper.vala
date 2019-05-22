@@ -21,5 +21,9 @@ namespace Tracky {
 
 			return result;
 		}
+
+		public static int hmToSeconds(int hours, int minutes) {
+ 			return (hours * 60 * 60) + (minutes * 60);
+		}
 	}
 }

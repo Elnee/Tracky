@@ -79,13 +79,24 @@ namespace Tracky {
 			return tasks;
 		}
 
-		public void updateTask (Tracky.Task task) {
+		public void updateTask(Tracky.Task task) {
 			string task_goal = (task is Tracky.TaskGoal)
 				? (task as Tracky.TaskGoal).goal.to_string() : "NULL";
 
 			string query = @"UPDATE Tasks SET title='$(task.title)', " +
 			               @"current=$(task.current), " +
-			               @"goal=$(task_goal) WHERE id=$(task.id)";
+			               @"goal=$task_goal WHERE id=$(task.id);";
+
+			int ec = db.exec(query, null, out errmsg);
+			if (ec != Sqlite.OK)
+				stderr.printf ("Error: %s\n", errmsg);
+		}
+
+		public void createTask(string title, int goal) {
+			string task_goal = goal > 0 ? goal.to_string() : "NULL";
+
+			string query = @"INSERT INTO Tasks (id, title, current, goal) " +
+			               @"VALUES (NULL, '$title', 0, $task_goal);";
 
 			int ec = db.exec(query, null, out errmsg);
 			if (ec != Sqlite.OK)
