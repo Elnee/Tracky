@@ -26,7 +26,6 @@
           <object class="GtkScrolledWindow">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="shadow_type">in</property>
             <child>
               <object class="GtkViewport">
                 <property name="visible">True</property>
@@ -41,8 +40,10 @@
                     </child>
                     <child>
                       <object class="GtkListBox" id="tasks_listbox">
+                        <property name="width_request">620</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="halign">center</property>
                       </object>
                       <packing>
                         <property name="expand">True</property>

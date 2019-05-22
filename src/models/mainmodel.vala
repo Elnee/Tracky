@@ -66,7 +66,9 @@ namespace Tracky {
 		public void stopTask(int index)
 			requires (index >= 0 && index < nTasks)
 		{
-			tasks[index].stop();
+			var task = tasks[index];
+			task.stop();
+			//db.updateTask(task);
 			//TODO: Database update task (needs empty for testing)
 		}
 
