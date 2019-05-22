@@ -11,14 +11,17 @@ namespace Tracky {
 		protected Gtk.Box body_box;
 		[GtkChild]
 		protected Gtk.Box main_box;
+		[GtkChild]
+		protected Gtk.Revealer controls_revealer;
 
 		protected Gtk.Image start_icon;
 		protected Gtk.Image pause_icon;
-		protected bool counting = false;
+		protected bool counting;
 		protected int current;
 
 		protected MainModel model;
 		protected int task_index;
+		protected bool show_controls;
 
 		public TaskWidget(int task_index, MainModel model) {
 			this.selectable = false;
@@ -33,6 +36,8 @@ namespace Tracky {
 
 			this.title_label.label = model.getTaskTitle(task_index);
 			this.start_btn.image = start_icon;
+			this.show_controls = false;
+			this.counting = false;
 			this.current = model.getTaskCurrent(task_index);
 			this.current_label.label = Helper.secondsToText(current);
 
@@ -53,6 +58,23 @@ namespace Tracky {
 				counting = false;
 				this.start_btn.image = start_icon;
 				model.stopTask(task_index);
+			}
+		}
+
+		[GtkCallback]
+		protected void on_reset_btn_clicked() {
+			counting = false;
+			this.start_btn.image = start_icon;
+			model.resetTask(task_index);
+		}
+
+		public void toggleControls() {
+			if (show_controls) {
+				controls_revealer.set_reveal_child(false);
+				show_controls = false;
+			} else {
+				controls_revealer.set_reveal_child(true);
+				show_controls = true;
 			}
 		}
 

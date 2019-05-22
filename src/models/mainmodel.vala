@@ -12,6 +12,7 @@ namespace Tracky {
 
 		public abstract void startTask(int index);
 		public abstract void stopTask(int index);
+		public abstract void resetTask(int index);
 
 		public abstract Tracky.Task getTask(int index);
 
@@ -71,6 +72,14 @@ namespace Tracky {
 		{
 			var task = tasks[index];
 			task.stop();
+			db.updateTask(task);
+		}
+
+		public void resetTask(int index)
+			requires (index >= 0 && index < nTasks)
+		{
+			var task = tasks[index];
+			task.reset();
 			db.updateTask(task);
 		}
 

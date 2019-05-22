@@ -33,6 +33,8 @@ namespace Tracky {
 		private Gtk.SpinButton hours_spnbtn;
 		[GtkChild]
 		private Gtk.SpinButton minutes_spnbtn;
+		[GtkChild]
+		private Gtk.Button newtask_btn;
 
 		private MainModel model;
 
@@ -41,6 +43,10 @@ namespace Tracky {
 			this.model = model;
 
 			drawTasks();
+
+			tasks_listbox.row_activated.connect((row) => {
+				(row as TaskWidget).toggleControls();
+			});
 		}
 
 		private void drawTasks() {
@@ -72,6 +78,7 @@ namespace Tracky {
 		[GtkCallback]
 		void on_newtask_btn_clicked() {
 			main_stack.visible_child_name = "newtask_page";
+			newtask_btn.sensitive = false;
 		}
 
 		[GtkCallback]
@@ -87,6 +94,7 @@ namespace Tracky {
 		void on_cancelcreate_btn_clicked() {
 			main_stack.visible_child_name = "tasks_page";
 			clearNewtaskSection();
+			newtask_btn.sensitive = true;
 		}
 
 		[GtkCallback]

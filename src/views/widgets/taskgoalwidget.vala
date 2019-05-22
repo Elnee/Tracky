@@ -9,6 +9,7 @@ namespace Tracky {
 			base(task_index, model);
 
 			goal = model.getTaskGoal(task_index);
+
 			buildProgressBar();
 			buildGoalLabel();
 
@@ -37,6 +38,7 @@ namespace Tracky {
 			this.progress_bar.visible = true;
 			this.progress_bar.margin_start = 5;
 			main_box.add(progress_bar);
+			main_box.reorder_child(progress_bar, 2);
 		}
 
 		protected void buildGoalLabel() {
