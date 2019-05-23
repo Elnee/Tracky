@@ -41,12 +41,22 @@ namespace Tracky {
 		public Window (Gtk.Application app, MainModel model) {
 			this.application = app;
 			this.model = model;
+			this.resizable = false;
 
 			drawTasks();
 
 			tasks_listbox.row_activated.connect((row) => {
 				(row as TaskWidget).toggleControls();
 			});
+
+			// Apply styles
+			var provider = new Gtk.CssProvider();
+			provider.load_from_resource("/com/github/Elnee/Tracky/views/ui/style.css");
+			Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(),
+				provider, Gtk.STYLE_PROVIDER_PRIORITY_USER);
+
+			tasks_listbox.get_style_context().add_class("tasks-listbox");
+
 		}
 
 		private void drawTasks() {

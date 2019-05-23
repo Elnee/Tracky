@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.1 -->
+<!-- Generated with glade 3.22.0 -->
 <interface domain="">
   <requires lib="gtk+" version="3.20"/>
   <template class="TrackyTaskWidget" parent="GtkListBoxRow">
@@ -131,5 +131,8 @@
         </child>
       </object>
     </child>
+    <style>
+      <class name="task-widget"/>
+    </style>
   </template>
 </interface>

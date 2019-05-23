@@ -3,5 +3,6 @@
   <gresource prefix="/com/github/Elnee/Tracky">
     <file>views/ui/window.ui</file>
     <file>views/ui/taskwidget.ui</file>
+    <file>views/ui/style.css</file>
   </gresource>
 </gresources>

@@ -1,0 +1,10 @@
+.task-widget {
+  border-radius: 5px;
+  border: 1px solid @borders;
+  background-color: @theme_base_color;
+  margin-top: 10px;
+}
+
+.tasks-listbox {
+  background-color: @theme_bg_color;
+}
