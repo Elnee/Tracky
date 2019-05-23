@@ -71,8 +71,11 @@ namespace Tracky {
 
 		[GtkCallback]
 		protected void on_remove_btn_clicked() {
+			counting = false;
+			model.stopTask(task_index);
 			model.removeTask(task_index);
 			destroy();
+			base.destroy();
 		}
 
 		public void toggleControls() {

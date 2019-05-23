@@ -98,7 +98,7 @@ namespace Tracky {
 
 		public void addNewTask(string title, int goal) {
 			db.createTask(title, goal);
-			tasks.add(db.retrieveTasks()[nTasks]);
+			tasks.add(db.retrieveTasks().last());
 		}
 
 		public void saveAllTasks() {
