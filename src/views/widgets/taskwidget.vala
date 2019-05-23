@@ -65,6 +65,7 @@ namespace Tracky {
 		protected void on_reset_btn_clicked() {
 			counting = false;
 			this.start_btn.image = start_icon;
+			this.start_btn.sensitive = true;
 			model.resetTask(task_index);
 			toggleControls();
 		}
