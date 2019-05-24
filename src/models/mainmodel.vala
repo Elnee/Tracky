@@ -26,8 +26,6 @@ namespace Tracky {
 		private ArrayList<Tracky.Task> tasks;
 		public int nTasks { get {return tasks.size;} }
 
-		public delegate void onCurrentUpdate();
-
 		public MainModel() {
 			db = Database.getDatabase();
 			tasks = db.retrieveTasks();

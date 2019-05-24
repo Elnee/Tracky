@@ -32,7 +32,7 @@ namespace Tracky {
 			});
 		}
 
-		protected void buildProgressBar() {
+		private void buildProgressBar() {
 			this.progress_bar = new Gtk.ProgressBar();
 			this.progress_bar.fraction = (double) current / goal;
 			this.progress_bar.visible = true;
@@ -41,7 +41,7 @@ namespace Tracky {
 			main_box.reorder_child(progress_bar, 2);
 		}
 
-		protected void buildGoalLabel() {
+		private void buildGoalLabel() {
 			this.goal_label = new Gtk.Label(Helper.secondsToText(goal));
 			this.goal_label.visible = true;
 			this.goal_label.margin_end = 5;
