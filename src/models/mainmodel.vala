@@ -1,27 +1,7 @@
 using Gee;
 
 namespace Tracky {
-	public interface iMainModel : Object {
-		public abstract int nTasks { get; }
-
-		public abstract string getTaskTitle(int index);
-		public abstract int getTaskCurrent(int index);
-		public abstract int getTaskGoal(int index);
-
-		public abstract bool taskHasGoal(int index);
-
-		public abstract void startTask(int index);
-		public abstract void stopTask(int index);
-		public abstract void resetTask(int index);
-		public abstract void removeTask(int index);
-
-		public abstract Tracky.Task getTask(int index);
-
-		public abstract void addNewTask(string title, int goal);
-		public abstract void saveAllTasks();
-	}
-
-	public class MainModel : Object, iMainModel {
+	public class MainModel : Object {
 		private Database db;
 		private ArrayList<Tracky.Task> tasks;
 		public int nTasks { get {return tasks.size;} }

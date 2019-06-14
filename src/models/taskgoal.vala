@@ -1,14 +1,9 @@
 namespace Tracky {
-	public interface iTaskGoal : Object, iTask {
-		public abstract int goal { get; protected set; }
-		public abstract bool finished { get; protected set; }
-
-		public abstract signal void finish();
-	}
-
-	public class TaskGoal : Task, iTaskGoal {
+	public class TaskGoal : Task {
 		public int goal { get; protected set; }
 		public bool finished { get; protected set; }
+
+		public abstract signal void finish();
 
 		public TaskGoal(int id, string title, int current, int goal) {
 			base(id, title, current);

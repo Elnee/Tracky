@@ -1,15 +1,5 @@
 namespace Tracky {
-	public interface iTask : Object {
-		public abstract int id { get; protected set; }
-		public abstract string title { get; protected set; }
-		public abstract int current { get; protected set; }
-
-		public abstract void start();
-		public abstract void stop();
-		public abstract void reset();
-	}
-
-	public class Task : Object, iTask {
+	public class Task : Object {
 		public int id { get; protected set; }
 		public string title { get; protected set;}
 		public int current { get; protected set; }
