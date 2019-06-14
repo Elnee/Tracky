@@ -2,7 +2,7 @@
 [![Attention](https://img.shields.io/badge/PRETTY-RISQUE-blue.svg?style=for-the-badge)](https://github.com/Elnee/Tracky#attention)
 
 # Tracky
-![screenshot](https://github.com/Elnee/Tracky/raw/master/data/screenshots/1.png)
+![screenshot](https://github.com/Elnee/Tracky/raw/master/data/screenshots/1.png)  
 GNOME Application to track your activities (WIP)
 
 ## Attention
