@@ -20,7 +20,7 @@ public class Tracky.TaskWidget : Gtk.ListBoxRow {
 
     protected MainModel model;
     protected int task_index;
-    protected bool show_controls;
+    protected bool controls_visible;
 
     public TaskWidget(int task_index, MainModel model) {
         this.selectable = false;
@@ -35,7 +35,7 @@ public class Tracky.TaskWidget : Gtk.ListBoxRow {
 
         this.title_label.label = model.getTaskTitle(task_index);
         this.start_btn.image = start_icon;
-        this.show_controls = false;
+        this.controls_visible = false;
         this.counting = false;
         this.current = model.getTaskCurrent(task_index);
         this.current_label.label = Helper.secondsToText(current);
@@ -79,9 +79,9 @@ public class Tracky.TaskWidget : Gtk.ListBoxRow {
     }
 
     public void toggleControls() {
-        bool reveal = show_controls ? false : true;
-        controls_revealer.set_reveal_child(reveal);
-        show_controls = reveal;
+        bool show_controls = controls_visible ? false : true;
+        controls_revealer.set_reveal_child(show_controls);
+        controls_visible = show_controls;
     }
 
 }
