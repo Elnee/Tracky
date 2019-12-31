@@ -16,13 +16,13 @@ public class Tracky.TaskWidget : Gtk.ListBoxRow {
     protected Gtk.Image start_icon;
     protected Gtk.Image pause_icon;
     protected bool counting;
-    protected int current;
 
     protected MainModel model;
-    protected int task_index;
+    protected Tracky.Task task;
+
     protected bool controls_visible;
 
-    public TaskWidget(int task_index, MainModel model) {
+    public TaskWidget(Tracky.Task task, MainModel model) {
         this.selectable = false;
 
         start_icon = new Gtk.Image.from_icon_name
@@ -31,19 +31,16 @@ public class Tracky.TaskWidget : Gtk.ListBoxRow {
           ("media-playback-pause", Gtk.IconSize.BUTTON);
 
         this.model = model;
-        this.task_index = task_index;
+        this.task = task;
 
-        this.title_label.label = model.getTaskTitle(task_index);
+        this.title_label.label = task.title;
         this.start_btn.image = start_icon;
         this.controls_visible = false;
         this.counting = false;
-        this.current = model.getTaskCurrent(task_index);
-        this.current_label.label = Helper.secondsToText(current);
+        this.current_label.label = Helper.secondsToText(task.current);
 
-        model.getTask(task_index).notify["current"].connect(() => {
-            this.current = model.getTaskCurrent(task_index);
-            this.current_label.label =
-                Helper.secondsToText(this.current);
+        task.notify["current"].connect(() => {
+            this.current_label.label = Helper.secondsToText(task.current);
         });
     }
 
@@ -52,11 +49,17 @@ public class Tracky.TaskWidget : Gtk.ListBoxRow {
         if (!counting) {
             counting = true;
             this.start_btn.image = pause_icon;
-            model.startTask(task_index);
+
+            // FIXME: I have to get rid of these type checkings
+            if (task is Tracky.TaskGoal) {
+                (task as Tracky.TaskGoal).start();
+            } else {
+                task.start();
+            }
         } else {
             counting = false;
             this.start_btn.image = start_icon;
-            model.stopTask(task_index);
+            task.stop();
         }
     }
 
@@ -65,15 +68,15 @@ public class Tracky.TaskWidget : Gtk.ListBoxRow {
         counting = false;
         this.start_btn.image = start_icon;
         this.start_btn.sensitive = true;
-        model.resetTask(task_index);
+        task.reset();
         toggleControls();
     }
 
     [GtkCallback]
     protected void on_remove_btn_clicked() {
         counting = false;
-        model.stopTask(task_index);
-        model.removeTask(task_index);
+        task.stop();
+        model.removeTask(task);
         destroy();
         base.destroy();
     }

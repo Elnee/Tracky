@@ -2,22 +2,21 @@ public class Tracky.TaskGoalWidget : TaskWidget {
     protected Gtk.ProgressBar progress_bar;
     protected Gtk.Label goal_label;
 
-    protected int goal;
+    protected int goal {
+        get { return ((Tracky.TaskGoal) task).goal; }
+    }
 
-    public TaskGoalWidget(int task_index, MainModel model) {
-        base(task_index, model);
-
-        goal = model.getTaskGoal(task_index);
+    public TaskGoalWidget(Tracky.Task task, MainModel model) {
+        base(task, model);
 
         buildProgressBar();
         buildGoalLabel();
 
-        var task = model.getTask(task_index) as Tracky.TaskGoal;
         task.notify["current"].connect(() => {
-            this.progress_bar.fraction = (double) current / goal;
+            this.progress_bar.fraction = (double) task.current / goal;
         });
 
-        task.finish.connect(() => {
+        (task as Tracky.TaskGoal).finish.connect(() => {
             this.start_btn.image = start_icon;
             this.start_btn.sensitive = false;
 
@@ -33,7 +32,7 @@ public class Tracky.TaskGoalWidget : TaskWidget {
 
     private void buildProgressBar() {
         this.progress_bar = new Gtk.ProgressBar();
-        this.progress_bar.fraction = (double) current / goal;
+        this.progress_bar.fraction = (double) task.current / goal;
         this.progress_bar.visible = true;
         this.progress_bar.margin_start = 5;
         main_box.add(progress_bar);
