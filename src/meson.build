@@ -8,7 +8,7 @@ tracky_sources = [
   'models/mainmodel.vala',
   'views/widgets/taskwidget.vala',
   'views/widgets/taskgoalwidget.vala',
-  'views/window.vala',
+  'views/window.vala'
 ]
 
 tracky_deps = [
@@ -16,7 +16,7 @@ tracky_deps = [
   dependency('gtk+-3.0', version: '>= 3.22'),
   dependency('sqlite3', version: '>= 3.26'),
   dependency('gee-0.8', version: '>= 0.20'),
-  dependency('libnotify', version: '>= 0.7'),
+  dependency('libnotify', version: '>= 0.7')
 ]
 
 gnome = import('gnome')
@@ -28,5 +28,5 @@ tracky_sources += gnome.compile_resources('tracky-resources',
 
 executable('tracky', tracky_sources,
   vala_args: '--target-glib=2.50',  dependencies: tracky_deps,
-  install: true,
+  install: true
 )
