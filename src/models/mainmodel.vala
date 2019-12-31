@@ -22,6 +22,10 @@ public class Tracky.MainModel : Object {
         return tasks.last();
     }
 
+    public void removeTask(Tracky.Task task) {
+        db.deleteTask(task.id);
+    }
+
     public void saveAllTasks() {
         for (int i = 0; i < nTasks; ++i) {
             db.updateTask(tasks[i]);
