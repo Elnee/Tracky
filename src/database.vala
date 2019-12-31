@@ -71,8 +71,11 @@ public class Tracky.Database : Object {
             int task_current = stmt.column_value(2).to_int();
             int task_goal = stmt.column_value(3).to_int();
 
-            if (task_goal == 0) tasks.add(new Tracky.Task(task_id, task_title, task_current));
-            else tasks.add(new Tracky.TaskGoal(task_id, task_title, task_current, task_goal));
+            if (task_goal == 0) {
+                tasks.add(new Tracky.Task(task_id, task_title, task_current));
+            } else {
+                tasks.add(new Tracky.TaskGoal(task_id, task_title, task_current, task_goal));
+            }
         }
 
         return tasks;

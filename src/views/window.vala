@@ -59,17 +59,21 @@ public class Tracky.Window : Gtk.ApplicationWindow {
 
     private void drawTasks() {
         for (int i = 0; i < model.nTasks; ++i) {
-            addTaskToList(i);
+            Tracky.Task task = model.getTask(i);
+            addTaskToList(task);
         }
     }
 
-    private void addTaskToList(int index) {
+    private void addTaskToList(Tracky.Task task) {
         TaskWidget task_widget;
-            if (!model.taskHasGoal(index))
-                task_widget = new TaskWidget(index, model);
-            else
-                task_widget = new TaskGoalWidget(index, model);
-            tasks_listbox.add(task_widget);
+
+        if (task is Tracky.TaskGoal) {
+            task_widget = new TaskGoalWidget(task, model);
+        } else {
+            task_widget = new TaskWidget(task, model);
+        }
+
+        tasks_listbox.add(task_widget);
     }
 
     private void clearNewtaskSection() {
@@ -110,8 +114,8 @@ public class Tracky.Window : Gtk.ApplicationWindow {
         main_stack.visible_child_name = "tasks_page";
         var goal = Helper.hmToSeconds(hours_spnbtn.get_value_as_int(),
                                    minutes_spnbtn.get_value_as_int());
-        model.addNewTask(title_entry.text, goal);
-        addTaskToList(model.nTasks - 1);
+        var task = model.addNewTask(title_entry.text, goal);
+        addTaskToList(task);
         clearNewtaskSection();
         newtask_btn.sensitive = true;
     }
