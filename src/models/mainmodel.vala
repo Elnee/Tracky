@@ -16,9 +16,10 @@ public class Tracky.MainModel : Object {
         return tasks[index];
     }
 
-    public void addNewTask(string title, int goal) {
+    public Tracky.Task addNewTask(string title, int goal) {
         db.createTask(title, goal);
         tasks.add(db.retrieveTasks().last());
+        return tasks.last();
     }
 
     public void saveAllTasks() {
