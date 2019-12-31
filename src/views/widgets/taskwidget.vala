@@ -79,13 +79,9 @@ public class Tracky.TaskWidget : Gtk.ListBoxRow {
     }
 
     public void toggleControls() {
-        if (show_controls) {
-            controls_revealer.set_reveal_child(false);
-            show_controls = false;
-        } else {
-            controls_revealer.set_reveal_child(true);
-            show_controls = true;
-        }
+        bool reveal = show_controls ? false : true;
+        controls_revealer.set_reveal_child(reveal);
+        show_controls = reveal;
     }
 
 }
