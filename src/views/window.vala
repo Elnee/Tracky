@@ -18,102 +18,101 @@
 
 [GtkTemplate (ui = "/com/github/Elnee/Tracky/views/ui/window.ui")]
 public class Tracky.Window : Gtk.ApplicationWindow {
-	[GtkChild]
-	private Gtk.ListBox tasks_listbox;
-	[GtkChild]
-	private Gtk.Stack main_stack;
-	[GtkChild]
-	private Gtk.CheckButton withgoal_checkbtn;
-	[GtkChild]
-	private Gtk.Revealer goal_revealer;
-	[GtkChild]
-	private Gtk.Entry title_entry;
-	[GtkChild]
-	private Gtk.SpinButton hours_spnbtn;
-	[GtkChild]
-	private Gtk.SpinButton minutes_spnbtn;
-	[GtkChild]
-	private Gtk.Button newtask_btn;
+    [GtkChild]
+    private Gtk.ListBox tasks_listbox;
+    [GtkChild]
+    private Gtk.Stack main_stack;
+    [GtkChild]
+    private Gtk.CheckButton withgoal_checkbtn;
+    [GtkChild]
+    private Gtk.Revealer goal_revealer;
+    [GtkChild]
+    private Gtk.Entry title_entry;
+    [GtkChild]
+    private Gtk.SpinButton hours_spnbtn;
+    [GtkChild]
+    private Gtk.SpinButton minutes_spnbtn;
+    [GtkChild]
+    private Gtk.Button newtask_btn;
 
-	private MainModel model;
+    private MainModel model;
 
-	public Window (Gtk.Application app, MainModel model) {
-		this.application = app;
-		this.model = model;
-		this.resizable = false;
+    public Window (Gtk.Application app, MainModel model) {
+        this.application = app;
+        this.model = model;
+        this.resizable = false;
 
-		drawTasks();
+        drawTasks();
 
-		tasks_listbox.row_activated.connect((row) => {
-			(row as TaskWidget).toggleControls();
-		});
+        tasks_listbox.row_activated.connect((row) => {
+            (row as TaskWidget).toggleControls();
+        });
 
-		// Apply styles
-		var provider = new Gtk.CssProvider();
-		provider.load_from_resource("/com/github/Elnee/Tracky/views/ui/style.css");
-		Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(),
-			provider, Gtk.STYLE_PROVIDER_PRIORITY_USER);
+        // Apply styles
+        var provider = new Gtk.CssProvider();
+        provider.load_from_resource("/com/github/Elnee/Tracky/views/ui/style.css");
+        Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(),
+            provider, Gtk.STYLE_PROVIDER_PRIORITY_USER);
 
-		tasks_listbox.get_style_context().add_class("tasks-listbox");
+        tasks_listbox.get_style_context().add_class("tasks-listbox");
+    }
 
-	}
+    private void drawTasks() {
+        for (int i = 0; i < model.nTasks; ++i) {
+            addTaskToList(i);
+        }
+    }
 
-	private void drawTasks() {
-		for (int i = 0; i < model.nTasks; ++i) {
-			addTaskToList(i);
-		}
-	}
+    private void addTaskToList(int index) {
+        TaskWidget task_widget;
+            if (!model.taskHasGoal(index))
+                task_widget = new TaskWidget(index, model);
+            else
+                task_widget = new TaskGoalWidget(index, model);
+            tasks_listbox.add(task_widget);
+    }
 
-	private void addTaskToList(int index) {
-		TaskWidget task_widget;
-			if (!model.taskHasGoal(index))
-				task_widget = new TaskWidget(index, model);
-			else
-				task_widget = new TaskGoalWidget(index, model);
-			tasks_listbox.add(task_widget);
-	}
+    private void clearNewtaskSection() {
+        title_entry.text = "";
+        hours_spnbtn.value = 0;
+        minutes_spnbtn.value = 0;
+        withgoal_checkbtn.active = false;
+    }
 
-	private void clearNewtaskSection() {
-		title_entry.text = "";
-		hours_spnbtn.value = 0;
-		minutes_spnbtn.value = 0;
-		withgoal_checkbtn.active = false;
-	}
+    //
+    //  New task section
+    //
 
-	//
-	//  New task section
-	//
+    [GtkCallback]
+    void on_newtask_btn_clicked() {
+        main_stack.visible_child_name = "newtask_page";
+        newtask_btn.sensitive = false;
+    }
 
-	[GtkCallback]
-	void on_newtask_btn_clicked() {
-		main_stack.visible_child_name = "newtask_page";
-		newtask_btn.sensitive = false;
-	}
+    [GtkCallback]
+    void on_withgoal_checkbtn_toggled() {
+        if (withgoal_checkbtn.active) {
+            goal_revealer.set_reveal_child(true);
+        } else {
+            goal_revealer.set_reveal_child(false);
+        }
+    }
 
-	[GtkCallback]
-	void on_withgoal_checkbtn_toggled() {
-		if (withgoal_checkbtn.active) {
-			goal_revealer.set_reveal_child(true);
-		} else {
-			goal_revealer.set_reveal_child(false);
-		}
-	}
+    [GtkCallback]
+    void on_cancelcreate_btn_clicked() {
+        main_stack.visible_child_name = "tasks_page";
+        clearNewtaskSection();
+        newtask_btn.sensitive = true;
+    }
 
-	[GtkCallback]
-	void on_cancelcreate_btn_clicked() {
-		main_stack.visible_child_name = "tasks_page";
-		clearNewtaskSection();
-		newtask_btn.sensitive = true;
-	}
-
-	[GtkCallback]
-	void on_createtask_btn_clicked() {
-		main_stack.visible_child_name = "tasks_page";
-		var goal = Helper.hmToSeconds(hours_spnbtn.get_value_as_int(),
-		                           minutes_spnbtn.get_value_as_int());
-		model.addNewTask(title_entry.text, goal);
-		addTaskToList(model.nTasks - 1);
-		clearNewtaskSection();
-		newtask_btn.sensitive = true;
-	}
+    [GtkCallback]
+    void on_createtask_btn_clicked() {
+        main_stack.visible_child_name = "tasks_page";
+        var goal = Helper.hmToSeconds(hours_spnbtn.get_value_as_int(),
+                                   minutes_spnbtn.get_value_as_int());
+        model.addNewTask(title_entry.text, goal);
+        addTaskToList(model.nTasks - 1);
+        clearNewtaskSection();
+        newtask_btn.sensitive = true;
+    }
 }
