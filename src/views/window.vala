@@ -68,9 +68,9 @@ public class Tracky.Window : Gtk.ApplicationWindow {
         TaskWidget task_widget;
 
         if (task is Tracky.TaskGoal) {
-            task_widget = new TaskGoalWidget(task);
+            task_widget = new TaskGoalWidget(task, model);
         } else {
-            task_widget = new TaskWidget(task);
+            task_widget = new TaskWidget(task, model);
         }
 
         tasks_listbox.add(task_widget);
