@@ -2,7 +2,7 @@ using Gee;
 
 public class Tracky.MainModel : Object {
     private Database db;
-    private ArrayList<Tracky.Task> tasks;
+    private ArrayList<Tracky.iTask> tasks;
     public int nTasks { get {return tasks.size;} }
 
     public MainModel() {
@@ -10,19 +10,19 @@ public class Tracky.MainModel : Object {
         tasks = db.retrieveTasks();
     }
 
-    public Tracky.Task getTask(int index)
+    public Tracky.iTask getTask(int index)
         requires (index >= 0 && index < nTasks)
     {
         return tasks[index];
     }
 
-    public Tracky.Task addNewTask(string title, int goal) {
+    public Tracky.iTask addNewTask(string title, int goal) {
         db.createTask(title, goal);
         tasks.add(db.retrieveTasks().last());
         return tasks.last();
     }
 
-    public void removeTask(Tracky.Task task) {
+    public void removeTask(Tracky.iTask task) {
         db.deleteTask(task.id);
     }
 

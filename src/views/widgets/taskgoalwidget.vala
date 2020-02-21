@@ -6,7 +6,7 @@ public class Tracky.TaskGoalWidget : TaskWidget {
         get { return ((Tracky.TaskGoal) task).goal; }
     }
 
-    public TaskGoalWidget(Tracky.Task task, MainModel model) {
+    public TaskGoalWidget(Tracky.iTask task, MainModel model) {
         base(task, model);
 
         buildProgressBar();

@@ -18,11 +18,11 @@ public class Tracky.TaskWidget : Gtk.ListBoxRow {
     protected bool counting;
 
     protected MainModel model;
-    protected Tracky.Task task;
+    protected Tracky.iTask task;
 
     protected bool controls_visible;
 
-    public TaskWidget(Tracky.Task task, MainModel model) {
+    public TaskWidget(Tracky.iTask task, MainModel model) {
         this.selectable = false;
 
         start_icon = new Gtk.Image.from_icon_name
@@ -49,13 +49,7 @@ public class Tracky.TaskWidget : Gtk.ListBoxRow {
         if (!counting) {
             counting = true;
             this.start_btn.image = pause_icon;
-
-            // FIXME: I have to get rid of these type checkings
-            if (task is Tracky.TaskGoal) {
-                (task as Tracky.TaskGoal).start();
-            } else {
-                task.start();
-            }
+            task.start();
         } else {
             counting = false;
             this.start_btn.image = start_icon;

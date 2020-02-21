@@ -1,4 +1,14 @@
-public class Tracky.Task : Object {
+public interface Tracky.iTask : Object {
+    public abstract int id { get; protected set; }
+    public abstract string title { get; protected set; }
+    public abstract int current { get; protected set; }
+
+    public abstract void start();
+    public abstract void stop();
+    public abstract void reset();
+}
+
+public class Tracky.Task : Tracky.iTask, Object {
     public int id { get; protected set; }
     public string title { get; protected set;}
     public int current { get; protected set; }

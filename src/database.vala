@@ -56,9 +56,9 @@ public class Tracky.Database : Object {
         }
     }
 
-    public ArrayList<Tracky.Task> retrieveTasks() {
+    public ArrayList<Tracky.iTask> retrieveTasks() {
         Sqlite.Statement stmt;
-        var tasks = new ArrayList<Tracky.Task>();
+        var tasks = new ArrayList<Tracky.iTask>();
         const string RETRIEVE_TASKS = "SELECT * FROM Tasks;";
 
         int ec = db.prepare_v2(RETRIEVE_TASKS, RETRIEVE_TASKS.length, out stmt);
@@ -81,7 +81,7 @@ public class Tracky.Database : Object {
         return tasks;
     }
 
-    public void updateTask(Tracky.Task task) {
+    public void updateTask(Tracky.iTask task) {
         string task_goal = (task is Tracky.TaskGoal)
             ? (task as Tracky.TaskGoal).goal.to_string() : "NULL";
 

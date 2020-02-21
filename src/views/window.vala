@@ -59,12 +59,12 @@ public class Tracky.Window : Gtk.ApplicationWindow {
 
     private void drawTasks() {
         for (int i = 0; i < model.nTasks; ++i) {
-            Tracky.Task task = model.getTask(i);
+            Tracky.iTask task = model.getTask(i);
             addTaskToList(task);
         }
     }
 
-    private void addTaskToList(Tracky.Task task) {
+    private void addTaskToList(Tracky.iTask task) {
         TaskWidget task_widget;
 
         if (task is Tracky.TaskGoal) {

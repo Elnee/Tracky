@@ -1,4 +1,4 @@
-public class Tracky.TaskGoal : Task {
+public class Tracky.TaskGoal : Tracky.Task, Tracky.iTask {
     public int goal { get; protected set; }
     public bool finished { get; protected set; }
 
