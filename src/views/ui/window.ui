@@ -120,6 +120,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="halign">end</property>
+                    <property name="margin_right">5</property>
                     <property name="label" translatable="yes">Title</property>
                   </object>
                   <packing>
@@ -144,17 +145,17 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
+                    <property name="halign">start</property>
+                    <property name="margin_left">30</property>
                     <property name="margin_top">8</property>
                     <property name="draw_indicator">True</property>
                     <signal name="toggled" handler="on_withgoal_checkbtn_toggled" swapped="no"/>
                   </object>
                   <packing>
-                    <property name="left_attach">1</property>
+                    <property name="left_attach">0</property>
                     <property name="top_attach">1</property>
+                    <property name="width">2</property>
                   </packing>
-                </child>
-                <child>
-                  <placeholder/>
                 </child>
               </object>
               <packing>
@@ -168,7 +169,6 @@
                 <property name="width_request">500</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="halign">center</property>
                 <property name="valign">center</property>
                 <property name="margin_top">8</property>
                 <child>
@@ -176,13 +176,14 @@
                     <property name="width_request">500</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="halign">center</property>
                     <property name="valign">center</property>
+                    <property name="margin_left">125</property>
                     <child>
                       <object class="GtkLabel">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="halign">end</property>
+                        <property name="margin_right">5</property>
                         <property name="label" translatable="yes">Hours</property>
                       </object>
                       <packing>
@@ -195,6 +196,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="halign">end</property>
+                        <property name="margin_right">5</property>
                         <property name="label" translatable="yes">Minutes</property>
                       </object>
                       <packing>
@@ -243,6 +245,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="halign">start</property>
+                <property name="margin_left">182</property>
                 <property name="margin_top">10</property>
                 <property name="hexpand">True</property>
                 <child>
@@ -251,6 +254,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
+                    <property name="margin_right">10</property>
                     <signal name="clicked" handler="on_createtask_btn_clicked" swapped="no"/>
                     <style>
                       <class name="suggested-action"/>
