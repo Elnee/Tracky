@@ -8,6 +8,10 @@
   margin-top: 10px;
 }
 
+.task-widget:last-child {
+  margin-bottom: 10px;
+}
+
 .tasks-listbox {
   background-color: @theme_bg_color;
 }
