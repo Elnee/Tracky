@@ -17,9 +17,6 @@ public class Tracky.TaskGoalWidget : TaskWidget {
         });
 
         (task as Tracky.TaskGoal).finish.connect(() => {
-            this.start_btn.image = start_icon;
-            this.start_btn.sensitive = false;
-
             try {
                 var notification = new Notify.Notification(title_label.label,
                     "The task has been finished", "dialog-information");
