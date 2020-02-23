@@ -12,17 +12,17 @@ public class Tracky.TaskGoal : Tracky.Task, Tracky.iTask {
 
     public new void start() {
         counting = true;
-        if (!finished) {
-            GLib.Timeout.add_seconds(1, () => {
-                if (!counting) return false;
-                current += 1;
-                if (current == goal) {
-                    finish();
-                    return false;
-                }
-                return true;
-            });
-        }
+        GLib.Timeout.add_seconds(1, () => {
+            if (!counting)
+                return false;
+
+            current += 1;
+
+            if (current == goal)
+                finish();
+
+            return true;
+        });
     }
 }
 

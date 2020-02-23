@@ -13,13 +13,10 @@ public class Tracky.TaskGoalWidget : TaskWidget {
         buildGoalLabel();
 
         task.notify["current"].connect(() => {
-            this.progress_bar.fraction = (double) task.current / goal;
+            fractionProgressBar();
         });
 
         (task as Tracky.TaskGoal).finish.connect(() => {
-            this.start_btn.image = start_icon;
-            this.start_btn.sensitive = false;
-
             try {
                 var notification = new Notify.Notification(title_label.label,
                     "The task has been finished", "dialog-information");
@@ -32,9 +29,9 @@ public class Tracky.TaskGoalWidget : TaskWidget {
 
     private void buildProgressBar() {
         this.progress_bar = new Gtk.ProgressBar();
-        this.progress_bar.fraction = (double) task.current / goal;
         this.progress_bar.visible = true;
         this.progress_bar.margin_start = 5;
+        fractionProgressBar();
         main_box.add(progress_bar);
         main_box.reorder_child(progress_bar, 2);
     }
@@ -46,5 +43,15 @@ public class Tracky.TaskGoalWidget : TaskWidget {
         this.goal_label.xalign = 1;
         this.goal_label.hexpand = true;
         body_box.add(goal_label);
+    }
+
+    private void fractionProgressBar() {
+        if (task.current >= goal) {
+            this.progress_bar.fraction = 1;
+            this.progress_bar.get_style_context().add_class("red-progress");
+        } else {
+            this.progress_bar.fraction = (double) task.current / goal;
+            this.progress_bar.get_style_context().remove_class("red-progress");
+        }
     }
 }
