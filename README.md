@@ -17,6 +17,5 @@ Also you can manually build it:
 git clone https://github.com/Elnee/Tracky.git
 cd Tracky
 meson builddir
-cd builddir
-ninja
+ninja -С builddir
 ```
